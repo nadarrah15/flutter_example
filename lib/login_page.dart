@@ -101,7 +101,7 @@ class _LoginPageState extends State<LoginPage> {
 
 bool checkResponse(String user, String pass){
 
-  http.post("10.1.21.229:6666", body: {"user": user, "pass": pass})
+  http.post("10.1.21.229:6666", body: {"user": _user.currentState, "pass": _password.currentState})
       .then((response) {
     print("Response status: ${response.statusCode}");
     print("Response body: ${response.body}");
