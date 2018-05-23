@@ -105,10 +105,15 @@ class _LoginPageState extends State<LoginPage> {
 
 Future<bool> checkResponse(String user, String pass) async{
 
+  Map jsonData = {
+    "user" : _user.currentState.value,
+    "password" : _password.currentState.value
+  };
+
   HttpClientRequest request =
-    await new HttpClient().postUrl(new Uri.dataFromString("http://10.1.21.229:6666"))
+    await new HttpClient().post("10.1.21.229", 6666, "")
       ..headers.contentType = ContentType.JSON
-      ..write(jsonEncode({"user": _user.currentState, "password": _password.currentState}));
+      ..write(jsonEncode(jsonData));
 
   HttpClientResponse response = await request.close();
   await response.transform(utf8.decoder /*5*/).forEach(print);
