@@ -67,10 +67,11 @@ class _LoginPageState extends State<LoginPage> {
         child: MaterialButton(
           minWidth: 200.0,
           height: 42.0,
-          onPressed: () {
-            if(checkResponse(_user.currentState.value, _password.currentState.value) == true)
+          onPressed: () => checkResponse(_user.currentState.value, _password.currentState.value).then((bool b) {
+            if(b)
               Navigator.of(context).pushNamed(HomePage.tag);
-          },
+          }),
+
           color: Colors.yellow,
           child: Text('Log In', style: TextStyle(color: Colors.white)),
         ),
@@ -117,6 +118,7 @@ Future<bool> checkResponse(String user, String pass) async{
 
   HttpClientResponse response = await request.close();
   await response.transform(utf8.decoder /*5*/).forEach(print);
+  print(response.statusCode);
     if(response.statusCode == 200)
       return true;
     else
