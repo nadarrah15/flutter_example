@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_example/home_page.dart';
 import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:io';
+import 'dart:convert';
 
 class LoginPage extends StatefulWidget {
   static String tag = 'login-page';
@@ -99,15 +102,19 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
-bool checkResponse(String user, String pass){
 
-  http.post("10.1.21.229:6666", body: {"user": user, "pass": pass})
-      .then((response) {
-    print("Response status: ${response.statusCode}");
-    print("Response body: ${response.body}");
+Future<bool> checkResponse(String user, String pass) async{
+
+  HttpClientRequest request =
+    await new HttpClient().postUrl(new Uri.dataFromString("http://10.1.21.229:6666"))
+      ..headers.contentType = ContentType.JSON
+      ..write(jsonEncode({"user": _user.currentState, "password": _password.currentState}));
+
+  HttpClientResponse response = await request.close();
+  await response.transform(utf8.decoder /*5*/).forEach(print);
     if(response.statusCode == 200)
       return true;
     else
       return false;
-    });
 }
+
