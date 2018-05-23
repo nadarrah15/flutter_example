@@ -65,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
           minWidth: 200.0,
           height: 42.0,
           onPressed: () {
-            if(checkResponse(email.initialValue, password.initialValue) == true)
+            if(checkResponse(_user.currentState.value, _password.currentState.value) == true)
               Navigator.of(context).pushNamed(HomePage.tag);
           },
           color: Colors.yellow,
@@ -101,7 +101,7 @@ class _LoginPageState extends State<LoginPage> {
 
 bool checkResponse(String user, String pass){
 
-  http.post("10.1.21.229:6666", body: {"user": _user.currentState, "pass": _password.currentState})
+  http.post("10.1.21.229:6666", body: {"user": user, "pass": pass})
       .then((response) {
     print("Response status: ${response.statusCode}");
     print("Response body: ${response.body}");
