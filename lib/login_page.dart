@@ -7,6 +7,9 @@ class LoginPage extends StatefulWidget {
   _LoginPageState createState() => new _LoginPageState();
 }
 
+final GlobalKey<FormFieldState<String>> _password = new GlobalKey<FormFieldState<String>>();
+final GlobalKey<FormFieldState<String>> _user = new GlobalKey<FormFieldState<String>>();
+
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
@@ -28,6 +31,7 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     final email = TextFormField(
+      key: _user,
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
       initialValue: 'someone@gmail.com',
@@ -39,6 +43,7 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     final password = TextFormField(
+      key: _password,
       autofocus: false,
       initialValue: 'some password',
       obscureText: true,
