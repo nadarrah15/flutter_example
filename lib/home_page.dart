@@ -5,16 +5,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final alucard = Hero(
-      tag: 'hero',
-      child: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: CircleAvatar(
-          radius: 72.0,
-          backgroundColor: Colors.transparent,
-        ),
-      ),
-    );
 
     final welcome = Padding(
       padding: EdgeInsets.all(8.0),
@@ -36,13 +26,10 @@ class HomePage extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.all(28.0),
       decoration: BoxDecoration(
-        gradient: LinearGradient(colors: [
-          Colors.blue,
-          Colors.lightBlueAccent,
-        ]),
+        color: Colors.grey,
       ),
       child: Column(
-        children: <Widget>[alucard, welcome, lorem],
+        children: <Widget>[welcome, lorem],
       ),
     );
 
