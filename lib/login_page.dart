@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_example/home_page.dart';
+import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
   static String tag = 'login-page';
@@ -27,7 +28,8 @@ class _LoginPageState extends State<LoginPage> {
         backgroundColor: Colors.transparent,
         radius: 48.0,
         child: Image.asset('assets/whitelvc_logo.png'),
-      ),
+
+      )
     );
 
     final email = TextFormField(
@@ -63,7 +65,8 @@ class _LoginPageState extends State<LoginPage> {
           minWidth: 200.0,
           height: 42.0,
           onPressed: () {
-            Navigator.of(context).pushNamed(HomePage.tag);
+            if(checkResponse(email.initialValue, password.initialValue) == true)
+              Navigator.of(context).pushNamed(HomePage.tag);
           },
           color: Colors.yellow,
           child: Text('Log In', style: TextStyle(color: Colors.white)),
@@ -92,5 +95,19 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+
   }
+}
+
+bool checkResponse(String user, String pass){
+
+  http.post("10.1.21.229:6666", body: {"user": user, "pass": pass})
+      .then((response) {
+    print("Response status: ${response.statusCode}");
+    print("Response body: ${response.body}");
+    if(response.statusCode == 200)
+      return true;
+    else
+      return false;
+    });
 }

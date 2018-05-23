@@ -6,7 +6,6 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-
     final welcome = Padding(
       padding: EdgeInsets.all(8.0),
       child: Text(
